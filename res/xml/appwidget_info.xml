@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+	android:minWidth="80dp"
+    android:minHeight="40dp"
+    android:updatePeriodMillis="86400000"
+    android:initialLayout="@layout/widget"
+    android:configure="github.com.fq310.FastDial.widget.WidgetActivity" 
+    android:resizeMode="horizontal|vertical">
+</appwidget-provider>
