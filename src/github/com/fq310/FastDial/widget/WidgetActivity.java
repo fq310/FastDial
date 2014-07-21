@@ -1,5 +1,6 @@
 package github.com.fq310.FastDial.widget;
 
+import net.margaritov.preference.colorpicker.ColorPickerDialog;
 import github.com.fq310.FastDial.git.R;
 import android.app.Activity;
 import android.os.Bundle;
@@ -39,6 +40,9 @@ public class WidgetActivity extends Activity {
 	}
 	
 	public void addForeColor(View view) {
+		ColorPickerDialog d = new ColorPickerDialog(this, 0x000000);
+		d.setAlphaSliderVisible(true);
+		d.show();
 	}
 	
 
