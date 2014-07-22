@@ -3,8 +3,14 @@ package github.com.fq310.FastDial.widget;
 import android.appwidget.AppWidgetManager;
 import android.appwidget.AppWidgetProvider;
 import android.content.Context;
+import android.content.Intent;
 
 public class WidgetProvider extends AppWidgetProvider {
+
+	@Override
+	public void onReceive(Context context, Intent intent) {
+		super.onReceive(context, intent);
+	}
 
 	@Override
 	public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -12,5 +18,4 @@ public class WidgetProvider extends AppWidgetProvider {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 	}
 
-	
 }

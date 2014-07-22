@@ -75,12 +75,19 @@
 
         <TextView
             android:id="@+id/textView_addFromAddress"
-            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:clickable="true"
             android:gravity="center"
             android:text="@string/addFromAddress"
             android:onClick="addFromAddress"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+        
+        <TextView
+            android:id="@+id/textView_address"
+            android:layout_width="25dp"
+            android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
     </LinearLayout>
@@ -119,7 +126,7 @@
         
         <TextView
             android:id="@+id/textView_ForeColor"
-            android:layout_width="50dp"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
@@ -145,7 +152,7 @@
         
         <TextView
             android:id="@+id/textView_BackColor"
-            android:layout_width="50dp"
+            android:layout_width="25dp"
             android:layout_height="match_parent"
             android:textAppearance="?android:attr/textAppearanceMedium" />
         
@@ -172,6 +179,7 @@
             android:layout_height="match_parent"
             android:layout_marginRight="5dp"
             android:layout_weight="1"
+            android:onClick="onCancel"
             style="?android:attr/borderlessButtonStyle"
             android:text="@string/cancel" />
           
@@ -181,6 +189,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="onOK"
             style="?android:attr/borderlessButtonStyle"
             android:text="@string/ok" />
 
