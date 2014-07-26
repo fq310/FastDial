@@ -4,7 +4,6 @@ import net.margaritov.preference.colorpicker.ColorPickerDialog;
 import net.margaritov.preference.colorpicker.ColorPickerDialog.OnColorChangedListener;
 import github.com.fq310.FastDial.git.R;
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -13,13 +12,10 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.RemoteViews;
 
 public class WidgetActivity extends Activity {
-	private static final String FORE_COLOR = "foreColor";
-	private static final String BACK_COLOR = "BackColor";
-	private static final String NAME = "name";
-	private static final String NUMBER = "number";
 	
 	private static final int INITIAL_COLOR = 0xFFFF4444;
 	private static final int DEFAULT_BACK_COLOR = 0xFF4444;
@@ -90,13 +86,18 @@ public class WidgetActivity extends Activity {
 		
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
 		RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget);
-		views.setTextViewText(R.id.textView_widget, "yes");
+		views.setTextViewText(R.id.textView_widget, getName());
 		views.setTextColor(R.id.textView_widget, foreColor);
 		views.setInt(R.id.textView_widget, "setBackgroundColor", backColor);
-		
+		views.setFloat(R.id.textView_widget, "setTextSize", 70);
 		appWidgetManager.updateAppWidget(mAppWidgetId, views);
 		
 		finish();
+	}
+
+	private String getName() {
+		EditText text = (EditText) this.findViewById(R.id.editText_name);
+		return text.getText().toString().trim();
 	}
 	
 	public void addForeColor(View view) {
