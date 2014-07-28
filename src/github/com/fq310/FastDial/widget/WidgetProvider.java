@@ -6,10 +6,12 @@ import android.content.Context;
 import android.content.Intent;
 
 public class WidgetProvider extends AppWidgetProvider {
-
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		super.onReceive(context, intent);
+		if (intent.getAction().equals("android.appwidget.action.APPWIDGET_UPDATE_OPTIONS")) {
+			
+		}
 	}
 
 	@Override
@@ -17,5 +19,4 @@ public class WidgetProvider extends AppWidgetProvider {
 			int[] appWidgetIds) {
 		super.onUpdate(context, appWidgetManager, appWidgetIds);
 	}
-
 }
