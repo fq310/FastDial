@@ -16,7 +16,22 @@
     <string name="color_foreground">单击设置文字颜色</string>
     <string name="color_background">单击设置背景颜色</string>
     
+    <string name="title_step3_size">3. 大小设置</string>
+    <string name="button_setsize">单击设置文字大小</string>
+    
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
+    
+    <string name="warning_title">警告</string>
+    <string name="warning_message">姓名和号码为必填项.</string>
+    
+    
+    <string name="main_title">使用说明</string>
+    <string name="main_instruction1">1. 主程序没有任何功能，请大家直接长按桌面空白处添加极速拨号的小插件，之后就会弹出设置界面.</string>
+    <string name="main_instruction2">2. 由于安卓手机屏幕大小及分辨率各不一样，所以请各位在设置界面里自行设置字体大小。在我的设备上（1280x800, 4.4寸屏幕）字体大小设置为70可以填充满2x1的桌面插件大小（插件大小也是可以自行设置的，长按已有插件即可），140就可以填充满4x1或者4×2的桌面插件大小，以此类推。如何找到字体大小和桌面插件大小的完美比例，那就只有靠大家多试几次了。</string>
+    <string name="main_instruction3">3. 有任何意见建议想要吐槽的请移步我的微博 @fq310，多谢大家！</string>
+    <string name="main_instruction4"></string>
+    <string name="main_instruction5"></string>
+    <string name="main_instruction6"></string>
     
 </resources>
