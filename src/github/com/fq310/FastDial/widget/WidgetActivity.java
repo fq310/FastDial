@@ -12,8 +12,11 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.Contacts;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -26,7 +29,6 @@ import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
 
 public class WidgetActivity extends Activity {
-	
 	private static final int INITIAL_COLOR = 0xFFFF4444;
 	private static final int DEFAULT_BACK_COLOR = 0xFF141414;
 	private static final int DEFAULT_FORE_COLOR = 0xFFFF3030;
@@ -216,6 +218,14 @@ public class WidgetActivity extends Activity {
 		return getEditTextString(R.id.editText_number);
 	}
 	
+	private void setName(String name) {
+		((EditText) this.findViewById(R.id.editText_name)).setText(name);
+	}
+	
+	private void setNumner(String number) {
+		((EditText) this.findViewById(R.id.editText_number)).setText(number);
+	}
+	
 	private String getEditTextString(int id) {
 		return ((EditText) this.findViewById(id)).getText().toString().trim();
 	}
@@ -247,5 +257,57 @@ public class WidgetActivity extends Activity {
 		});
 		backColorDialog.setOnCancelListener(colorPickerCancelListener);
 		backColorDialog.show();
+	}
+	
+	private static final int CONTACT = 1;
+	public void addFromAddress(View view) {
+		Intent intent = new Intent(Intent.ACTION_PICK, Contacts.CONTENT_URI);
+        startActivityForResult(intent, CONTACT);
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (data == null) return;
+		switch (requestCode) {
+		case CONTACT:
+			Uri uri = data.getData();
+			if (uri == null) return;
+			readContactName(uri);
+			readContactNumber(uri);
+		}
+	}
+
+	private void readContactName(Uri uri) {
+		Cursor c = getContentResolver().query(uri, null, null, null, null);
+		if (c.moveToFirst()) {
+			String name = c.getString(c.getColumnIndex(ContactsContract.Contacts.DISPLAY_NAME));
+			if (name != null) {
+				setName(name);
+			}
+		 }
+		c.close();
+	}
+
+	private void readContactNumber(Uri uri) {
+		 Cursor cursorID = getContentResolver().query(uri,
+                new String[]{ContactsContract.Contacts._ID},
+                null, null, null);
+		 String contactID = null;
+		 if (cursorID.moveToFirst()) {
+            contactID = cursorID.getString(cursorID.getColumnIndex(ContactsContract.Contacts._ID));
+		 }
+		 cursorID.close();
+		 if (contactID == null) return;
+		 Cursor cursorPhone = getContentResolver().query(ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+				 new String[]{ContactsContract.CommonDataKinds.Phone.NUMBER},
+                 ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + contactID,
+                 null,
+                 null);
+		 String contactNumber = null;
+		 if (cursorPhone.moveToFirst()) {
+			 contactNumber = cursorPhone.getString(cursorPhone.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER));
+		 }
+		 cursorPhone.close();
+		 if (contactNumber != null) setNumner(contactNumber);
 	}
 }
