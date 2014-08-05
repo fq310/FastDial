@@ -178,6 +178,7 @@ public class WidgetActivity extends Activity {
 	private void saveData() {
 		 SharedPreferences settings = getSharedPreferences(String.valueOf(mAppWidgetId), 0);
 	     SharedPreferences.Editor editor = settings.edit();
+	     editor.clear();
 	     editor.putString(WidgetProvider.NAME, getName());
 	     editor.putInt(WidgetProvider.FORE_COLOR, foreColor);
 	     editor.putInt(WidgetProvider.BACK_COLOR, backColor);
