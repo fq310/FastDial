@@ -6,12 +6,12 @@ import github.com.fq310.FastDial.git.R;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.RemoteViews;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -167,6 +166,7 @@ public class WidgetActivity extends Activity {
 			return;
 		}
 		destroyColorPickerDialog();
+		saveData();
 		initialWidget();
 		
 		Intent resultValue = new Intent();
@@ -175,6 +175,17 @@ public class WidgetActivity extends Activity {
 		finish();
 	}
 	
+	private void saveData() {
+		 SharedPreferences settings = getSharedPreferences(String.valueOf(mAppWidgetId), 0);
+	     SharedPreferences.Editor editor = settings.edit();
+	     editor.putString(WidgetProvider.NAME, getName());
+	     editor.putInt(WidgetProvider.FORE_COLOR, foreColor);
+	     editor.putInt(WidgetProvider.BACK_COLOR, backColor);
+	     editor.putInt(WidgetProvider.FONT_SIZE, textSize);
+	     editor.putString(WidgetProvider.NUMBER, getNumber());
+	     editor.commit();
+	}
+
 	private void showWarningDialog() {
 		AlertDialog.Builder builder = new Builder(this);
 		builder.setMessage(R.string.warning_message);
@@ -197,17 +208,7 @@ public class WidgetActivity extends Activity {
 
 	private void initialWidget() {
 		AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-		RemoteViews views = new RemoteViews(getPackageName(), R.layout.widget);
-		views.setTextViewText(R.id.textView_widget, getName());
-		views.setTextColor(R.id.textView_widget, foreColor);
-		views.setInt(R.id.textView_widget, "setBackgroundColor", backColor);
-		views.setFloat(R.id.textView_widget, "setTextSize", textSize);
-		
-		Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + getNumber()));
-		PendingIntent Pfullintent = PendingIntent.getActivity(this, 0, intent, 0);
-		views.setOnClickPendingIntent(R.id.textView_widget, Pfullintent);
-		
-		appWidgetManager.updateAppWidget(mAppWidgetId, views);
+		WidgetProvider.update(this, mAppWidgetId, appWidgetManager);
 	}
 
 	private String getName() {
